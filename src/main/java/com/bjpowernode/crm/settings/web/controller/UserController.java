@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +35,7 @@ public class UserController {
 
     @RequestMapping("settings/qx/user/login.do")
     @ResponseBody
-    public Object login(HttpServletRequest request, String loginAct, String loginPwd){
+    public Object login(HttpServletRequest request, String loginAct, String loginPwd) throws ParseException {
 
         //密码加密  准备参数
         Map<String,Object> paramMap = new HashMap<>();
@@ -49,6 +52,23 @@ public class UserController {
 //            return retMap;
             return Result.fail("账号或密码错误");
         }
+
+        //验证用户账号是否失效
+        if(!"".equals(user.getExpireTime()) && (new Date().compareTo(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(user.getExpireTime()))) > 0){
+            return Result.fail("账号已失效");
+        }
+
+        //判断账户锁定状态
+        if(!"".equals(user.getLockState()) && (Integer.parseInt(user.getLockState()) == 0)){
+            return Result.fail("账号已被锁定,无法登陆");
+        }
+        //判断用户ip地址是否被允许访问
+        //获取用户的IP地址
+        String ipAddress = request.getRemoteHost();
+        if(!"".equals(user.getAllowIps()) && (!user.getAllowIps().contains(ipAddress))){
+            return Result.fail("当前ip地址不允许访问");
+        }
+
         //将用户的信息存入session
         request.getSession().setAttribute("sessionUser",user);
 //        retMap.put("code",1);
