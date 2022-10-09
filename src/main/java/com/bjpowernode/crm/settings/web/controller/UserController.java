@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
@@ -35,7 +36,7 @@ public class UserController {
 
     @RequestMapping("settings/qx/user/login.do")
     @ResponseBody
-    public Object login(HttpServletRequest request, String loginAct, String loginPwd) throws ParseException {
+    public Object login(HttpServletRequest request, HttpServletResponse response,String loginAct, String loginPwd,Boolean isRemPwd) throws ParseException {
 
         //密码加密  准备参数
         Map<String,Object> paramMap = new HashMap<>();
@@ -68,7 +69,15 @@ public class UserController {
         if(!"".equals(user.getAllowIps()) && (!user.getAllowIps().contains(ipAddress))){
             return Result.fail("当前ip地址不允许访问");
         }
-
+        //判断用户是否勾选记住我
+        if(isRemPwd){
+            Cookie c1 = new Cookie("loginAct",loginAct);
+            c1.setMaxAge(60*60*24*7);
+            response.addCookie(c1);
+            Cookie c2 = new Cookie("loginPwd",loginPwd);
+            c2.setMaxAge(60*60*24*7);
+            response.addCookie(c2);
+        }
         //将用户的信息存入session
         request.getSession().setAttribute("sessionUser",user);
 //        retMap.put("code",1);

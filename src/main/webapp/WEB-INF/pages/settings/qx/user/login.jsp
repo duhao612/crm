@@ -25,13 +25,16 @@ $(function () {
 			$("#msg").text("密码不能为空");
 			return;
 		}
+		//获取是否勾选记住我
+        var isRemPwd = $("#isRemPwd").prop("checked");
 		//发起登录请求
 		$.ajax({
 			url:"settings/qx/user/login.do",
 			type:"post",
 			data:{
 				loginAct:loginAct,
-				loginPwd:loginPwd
+				loginPwd:loginPwd,
+                isRemPwd:isRemPwd
 			},
 			// dataType:"json",
 			success:function (data){
