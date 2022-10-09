@@ -14,16 +14,16 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
 
 	//页面加载完毕
 	$(function(){
-		
+
 		//导航中所有文本颜色为黑色
 		$(".liClass > a").css("color" , "black");
-		
+
 		//默认选中导航菜单中的第一个菜单项
 		$(".liClass:first").addClass("active");
-		
+
 		//第一个菜单项的文字变成白色
 		$(".liClass:first > a").css("color" , "white");
-		
+
 		//给所有的菜单项注册鼠标单击事件
 		$(".liClass").click(function(){
 			//移除所有菜单项的激活状态
@@ -35,12 +35,12 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
 			//当前项目颜色变成白色
 			$(this).children("a").css("color","white");
 		});
-		
-		
+
+
 		window.open("settings/dictionary/type/index.do","workareaFrame");
-		
+
 	});
-	
+
 </script>
 
 </head>
@@ -91,14 +91,14 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
 								<input type="text" class="form-control" id="oldPwd" style="width: 200%;">
 							</div>
 						</div>
-						
+
 						<div class="form-group">
 							<label for="newPwd" class="col-sm-2 control-label">新密码</label>
 							<div class="col-sm-10" style="width: 300px;">
 								<input type="text" class="form-control" id="newPwd" style="width: 200%;">
 							</div>
 						</div>
-						
+
 						<div class="form-group">
 							<label for="confirmPwd" class="col-sm-2 control-label">确认密码</label>
 							<div class="col-sm-10" style="width: 300px;">
@@ -114,7 +114,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- 退出系统的模态窗口 -->
 	<div class="modal fade" id="exitModal" role="dialog">
 		<div class="modal-dialog" role="document" style="width: 30%;">
@@ -130,12 +130,12 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.href='login.jsp';">确定</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.href='settings/qx/user/logout.do';">确定</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- 顶部 -->
 	<div id="top" style="height: 50px; background-color: #3C3C3C; width: 100%;">
 		<div style="position: absolute; top: 5px; left: 0px; font-size: 30px; font-weight: 400; color: white; font-family: 'times new roman'">CRM &nbsp;<span style="font-size: 12px;">&copy;2017&nbsp;动力节点</span></div>
@@ -156,33 +156,33 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
 			</ul>
 		</div>
 	</div>
-	
+
 	<!-- 中间 -->
 	<div id="center" style="position: absolute;top: 50px; bottom: 30px; left: 0px; right: 0px;">
-	
+
 		<!-- 导航 -->
 		<div id="navigation" style="left: 0px; width: 18%; position: relative; height: 100%; overflow:auto;">
-		
+
 			<ul id="no1" class="nav nav-pills nav-stacked">
 				<li class="liClass"><a href="settings/dictionary/type/index.do" target="workareaFrame"><span class="glyphicon glyphicon-book"></span> 字典类型</a></li>
 				<li class="liClass"><a href="settings/dictionary/value/index.do" target="workareaFrame"><span class="glyphicon glyphicon-list"></span> 字典值</a></li>
 			</ul>
-			
+
 			<!-- 分割线 -->
 			<div id="divider1" style="position: absolute; top : 0px; right: 0px; width: 1px; height: 100% ; background-color: #B3B3B3;"></div>
 		</div>
-		
+
 		<!-- 工作区 -->
 		<div id="workarea" style="position: absolute; top : 0px; left: 18%; width: 82%; height: 100%;">
 			<iframe style="border-width: 0px; width: 100%; height: 100%;" name="workareaFrame"></iframe>
 		</div>
-		
+
 	</div>
-	
+
 	<div id="divider2" style="height: 1px; width: 100%; position: absolute;bottom: 30px; background-color: #B3B3B3;"></div>
-	
+
 	<!-- 底部 -->
 	<div id="down" style="height: 30px; width: 100%; position: absolute;bottom: 0px;"></div>
-	
+
 </body>
 </html>

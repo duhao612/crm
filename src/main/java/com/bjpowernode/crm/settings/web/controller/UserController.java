@@ -55,7 +55,7 @@ public class UserController {
         BoundValueOperations boundValueOperations = redisTemplate.boundValueOps(loginAct);
         Integer errorCount = (Integer) boundValueOperations.get();
 
-        if(errorCount != null && errorCount == 3){
+        if(errorCount != null && errorCount == 12){
           return Result.fail("输入次数已达上限,请明日再试");
         }
         //密码加密  准备参数
@@ -105,5 +105,11 @@ public class UserController {
 //        retMap.put("code",1);
 //        return retMap;
         return Result.success();
+    }
+
+    @RequestMapping("settings/qx/user/logout.do")
+    public String logout(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "redirect:/";
     }
 }

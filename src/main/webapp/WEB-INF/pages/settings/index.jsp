@@ -39,7 +39,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- 修改密码的模态窗口 -->
 	<div class="modal fade" id="editPwdModal" role="dialog">
 		<div class="modal-dialog" role="document" style="width: 70%;">
@@ -58,14 +58,14 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
 								<input type="text" class="form-control" id="oldPwd" style="width: 200%;">
 							</div>
 						</div>
-						
+
 						<div class="form-group">
 							<label for="newPwd" class="col-sm-2 control-label">新密码</label>
 							<div class="col-sm-10" style="width: 300px;">
 								<input type="text" class="form-control" id="newPwd" style="width: 200%;">
 							</div>
 						</div>
-						
+
 						<div class="form-group">
 							<label for="confirmPwd" class="col-sm-2 control-label">确认密码</label>
 							<div class="col-sm-10" style="width: 300px;">
@@ -81,7 +81,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- 退出系统的模态窗口 -->
 	<div class="modal fade" id="exitModal" role="dialog">
 		<div class="modal-dialog" role="document" style="width: 30%;">
@@ -97,12 +97,12 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.href='login.jsp';">确定</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.href='settings/qx/user/logout.do';">确定</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- 顶部 -->
 	<div id="top" style="height: 50px; background-color: #3C3C3C; width: 100%;">
 		<div style="position: absolute; top: 5px; left: 0px; font-size: 30px; font-weight: 400; color: white; font-family: 'times new roman'">CRM &nbsp;<span style="font-size: 12px;">&copy;2017&nbsp;动力节点</span></div>
@@ -123,7 +123,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
 			</ul>
 		</div>
 	</div>
-	
+
 	<!-- 中间 -->
 	<div id="center" style="position: absolute;top: 50px; bottom: 30px; left: 0px; right: 0px;">
 		<div style="position: relative; top: 30px; width: 60%; height: 100px; left: 20%;">
@@ -140,14 +140,14 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
 			<div style="position: relative; width: 33%; height: 50%;">
 				安全控制
 				<br><br>
-				<!-- 
+				<!--
 				<a href="org/index.jsp" style="text-decoration: none; color: red;">组织机构</a>
 				 -->
 				<a href="dept/index.html">部门管理</a>
 				<br>
 				<a href="qx/index.html">权限管理</a>
 			</div>
-			
+
 			<div style="position: relative; width: 33%; height: 50%; left: 33%; top: -100%">
 				定制
 				<br><br>
@@ -170,7 +170,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
 				<br>
 				<a href="javascript:void(0);">服务支持升级规则</a>
 			</div>
-			
+
 			<div style="position: relative; width: 34%; height: 50%;  left: 66%; top: -200%">
 				扩展及API
 				<br><br>
