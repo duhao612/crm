@@ -1,10 +1,14 @@
 package com.bjpowernode.crm.settings.web.controller;
 
 import com.bjpowernode.crm.commons.model.Result;
+import com.bjpowernode.crm.commons.utils.DateUtils;
 import com.bjpowernode.crm.commons.utils.MD5Util;
 import com.bjpowernode.crm.settings.domain.User;
 import com.bjpowernode.crm.settings.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.BoundValueOperations;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * ClassName:
@@ -25,6 +30,9 @@ import java.util.Map;
  */
 @Controller
 public class UserController {
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Autowired
     private UserService userService;
@@ -38,6 +46,18 @@ public class UserController {
     @ResponseBody
     public Object login(HttpServletRequest request, HttpServletResponse response,String loginAct, String loginPwd,Boolean isRemPwd) throws ParseException {
 
+        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<Object>(Object.class));
+        User userDetail = userService.queryUserByLoginAct(loginAct);
+
+        if(userDetail.getLoginAct() == null){
+            return Result.fail("账号或密码不正确");
+        }
+        BoundValueOperations boundValueOperations = redisTemplate.boundValueOps(loginAct);
+        Integer errorCount = (Integer) boundValueOperations.get();
+
+        if(errorCount != null && errorCount == 3){
+          return Result.fail("输入次数已达上限,请明日再试");
+        }
         //密码加密  准备参数
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("loginAct",loginAct);
@@ -48,6 +68,8 @@ public class UserController {
         //判断用户是否存在
 //        Map<String,Object> retMap = new HashMap<>();
         if(user == null){
+            boundValueOperations.increment(1);
+            boundValueOperations.expire(DateUtils.getRemainSecondsOneDay(new Date()), TimeUnit.SECONDS);
 //            retMap.put("code",0);
 //            retMap.put("message","账号或密码有误");
 //            return retMap;

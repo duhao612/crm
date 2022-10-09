@@ -12,4 +12,6 @@ import java.util.Map;
  */
 public interface UserService{
     User queryUserByLoginActAndPwd(Map<String, Object> paramMap);
+
+    User queryUserByLoginAct(String loginAct);
 }
