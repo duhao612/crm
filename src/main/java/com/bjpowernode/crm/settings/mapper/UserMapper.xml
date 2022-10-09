@@ -17,29 +17,35 @@
     <result column="edit_by" jdbcType="VARCHAR" property="editBy" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, login_act, name, login_pwd, email, expire_time, lock_state, dept_no, allow_ips, 
+    id, login_act, name, login_pwd, email, expire_time, lock_state, dept_no, allow_ips,
     create_time, create_by, edit_time, edit_by
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from tbl_user
     where id = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectByLoginActAndPwd" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_user
+    where login_act = #{loginAct} and login_pwd = #{loginPwd}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from tbl_user
     where id = #{id,jdbcType=CHAR}
   </delete>
   <insert id="insert" parameterType="com.bjpowernode.crm.settings.domain.User">
-    insert into tbl_user (id, login_act, name, 
-      login_pwd, email, expire_time, 
-      lock_state, dept_no, allow_ips, 
-      create_time, create_by, edit_time, 
+    insert into tbl_user (id, login_act, name,
+      login_pwd, email, expire_time,
+      lock_state, dept_no, allow_ips,
+      create_time, create_by, edit_time,
       edit_by)
-    values (#{id,jdbcType=CHAR}, #{loginAct,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{loginPwd,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{expireTime,jdbcType=CHAR}, 
-      #{lockState,jdbcType=CHAR}, #{deptNo,jdbcType=CHAR}, #{allowIps,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=CHAR}, #{createBy,jdbcType=VARCHAR}, #{editTime,jdbcType=CHAR}, 
+    values (#{id,jdbcType=CHAR}, #{loginAct,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{loginPwd,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{expireTime,jdbcType=CHAR},
+      #{lockState,jdbcType=CHAR}, #{deptNo,jdbcType=CHAR}, #{allowIps,jdbcType=VARCHAR},
+      #{createTime,jdbcType=CHAR}, #{createBy,jdbcType=VARCHAR}, #{editTime,jdbcType=CHAR},
       #{editBy,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.bjpowernode.crm.settings.domain.User">

@@ -13,9 +13,42 @@
 <script type="text/javascript">
 $(function () {
 	//给"登录"按钮添加单击事件
-	$("#loginBtn").click(function () {
-		window.location.href="workbench/index.do";
+	$("#loginBtn").on("click",function () {
+		//获取账号和密码
+		var loginAct = $.trim($("#loginAct").val());
+		if(loginAct == ""){
+			$("#msg").text("账号不能为空");
+			return;
+		}
+		var loginPwd = $("#loginPwd").val();
+		if(loginPwd == ""){
+			$("#msg").text("密码不能为空");
+			return;
+		}
+		//发起登录请求
+		$.ajax({
+			url:"settings/qx/user/login.do",
+			type:"post",
+			data:{
+				loginAct:loginAct,
+				loginPwd:loginPwd
+			},
+			// dataType:"json",
+			success:function (data){
+               if(data.code == 1){
+               	$("#msg").text("");
+               	//跳转至工作台页面
+				   window.location.href="workbench/index.do";
+			   }else{
+               	$("#msg").text(data.message);
+			   }
+			}
+		})
+
+
 	});
+
+
 });
 </script>
 </head>
@@ -53,5 +86,6 @@ $(function () {
 			</form>
 		</div>
 	</div>
+
 </body>
 </html>
